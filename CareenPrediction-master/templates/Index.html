@@ -1,0 +1,362 @@
+<!doctype html>
+<html>
+
+<head>
+    <meta charset='utf-8'>
+    <meta name='viewport' content='width=device-width, initial-scale=1'>
+    <title>Career Prediction App</title>
+    <link href='https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css' rel='stylesheet'>
+    <link href='https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css' rel='stylesheet'>
+    <script type='text/javascript' src='https://cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.min.js'></script>
+    <style>
+        body {
+            background: #eee
+        }
+
+        #regForm {
+            background-color: #ffffff;
+            margin: 0px auto;
+            font-family: Raleway;
+            padding: 40px;
+            border-radius: 40px;
+
+            /* width: 300px; */
+            /* height: 100px; */
+            /* padding: 15px; */
+            /* background-color: coral; */
+            box-shadow: 10px 10px #bbbbbb;
+
+        }
+
+        #register {
+            color: #1b9a9a;
+        }
+
+        h1 {
+            text-align: center
+        }
+
+        input {
+            padding: 10px;
+            width: 100%;
+            font-size: 17px;
+            font-family: Raleway;
+            border: 1px solid #aaaaaa;
+            border-radius: 10px;
+            -webkit-appearance: none
+        }
+
+        h6{
+            font-size: 20px;
+        }
+        .tab input:focus {
+            border: 1px solid #6a1b9a !important;
+            outline: none
+        }
+
+        input.invalid {
+            border: 1px solid #e03a0666
+        }
+
+        .tab {
+            display: none;
+        }
+        button {
+            background-color: #1b9a9a;
+            color: #ffffff;
+            border: none;
+            border-radius: 50%;
+            padding: 10px 20px;
+            font-size: 17px;
+            font-family: Raleway;
+            cursor: pointer
+        }
+
+        #predictBtn{
+            background-color: #1b9a9a;
+        }
+
+        button:hover {
+            opacity: 0.8
+        }
+
+        button:focus {
+            outline: none !important
+        }
+
+        #prevBtn {
+            background-color: #bbbbbb
+        }
+
+        .all-steps {
+            text-align: center;
+            margin-top: 30px;
+            margin-bottom: 30px;
+            width: 100%;
+            display: inline-flex;
+            justify-content: center
+        }
+
+        .step {
+            height: 40px;
+            width: 40px;
+            margin: 0 2px;
+            background-color: #bbbbbb;
+            border: none;
+            border-radius: 50%;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            font-size: 15px;
+            color: #6a1b9a;
+            opacity: 0.5
+        }
+
+        .step.active {
+            opacity: 1
+        }
+
+        .step.finish {
+            color: #fff;
+            background: #6a1b9a;
+            opacity: 1
+        }
+
+        .all-steps {
+            text-align: center;
+            margin-top: 30px;
+            margin-bottom: 30px
+        }
+
+        .thanks-message {
+            display: none
+        }
+    </style>
+</head>
+
+<body oncontextmenu='false' class='snippet-body'>
+    <div class="container mt-5">
+        <div class="row d-flex justify-content-center align-items-center">
+            <div class="col-md-8">
+                <form id="regForm" action="/result" method="POST">
+                    <h1 id="register">Let's Predict Your Career</h1>
+                    <div class="all-steps" id="all-steps">
+                        <!-- <span class="step">
+                            <i class="fa fa-book"></i>
+                        </span>
+                        <span class="step">
+                            <i class="fa fa-desktop"></i>
+                        </span> <span class="step">
+                            <i class="fa fa-database"></i>
+                        </span>
+                        <span class="step">
+                            <i class="fa fa-mouse-pointer"></i>
+                        </span>
+                        <span class="step">
+                            <i class="fa fa-headphones"></i>
+                        </span> -->
+                        <!-- <span class="step">
+                            <i class="fa fa-code"></i>
+                        </span>
+                        <span class="step">
+                            <i class="fa fa-code"></i>
+                        </span>
+                        <span class="step">
+                            <i class="fa fa-code"></i>
+                        </span> -->
+                    </div>
+
+
+
+
+
+                    <div class="tab">
+                        <h6>What's your CGPA?</h6>
+                        <p><input placeholder="0-10..." oninput="this.className = ''" name="cgpa" ></p>
+                    </div>
+                    <div class="tab">
+                        <h6>Did you do webdev during college ?</h6>
+                        <p><input placeholder="Yes/No..." oninput="this.className = ''" name="webd"></p>
+                    </div>
+                    <div class="tab">
+                        <h6>Are you good at Data analysis ?</h6>
+                        <p><input placeholder="Yes/No..." oninput="this.className = ''" name="da"></p>
+                    </div>
+                    <div class="tab">
+                        <h6>Do you have good reading and writing skills?</h6>
+                        <p><input placeholder="Yes/No..." oninput="this.className = ''" name="rws"></p>
+                    </div>
+
+
+                    <div class="tab">
+                        <h6>Are you a tech person ?</h6>
+                        <p><input placeholder="Yes/No..." oninput="this.className = ''" name="tp"></p>
+                    </div>
+                    <div class="tab">
+                        <h6>Were you in a non-tech society ?</h6>
+                        <p><input placeholder="Yes/No..." oninput="this.className = ''" name="ntp"></p>
+                    </div>
+
+                    <div class="tab">
+                        <h6>Are you good at coding ?</h6>
+                        <p><input placeholder="Yes/No..." oninput="this.className = ''" name="c"> </p>
+                    </div>
+                    <div class="tab">
+                        <h6>Have you done Android development ?</h6>
+                        <p><input placeholder="Yes/No..." oninput="this.className = ''" name="ad"> </p>
+                    </div>
+                    <div class="tab">
+                        <h6>Are you good at communication skills ?</h6>
+                        <p><input placeholder="Yes/No..." oninput="this.className = ''" name="cs"> </p>
+                    </div>
+                    <div class="tab">
+                        <h6>Do you have specialization in security</h6>
+                        <p><input placeholder="Yes/No..." oninput="this.className = ''" name="s"> </p>
+                    </div>
+                    <div class="tab">
+                        <h6>Have you ever handled large databases ?</h6>
+                        <p><input placeholder="Yes/No..." oninput="this.className = ''" name="db"></p>
+                    </div>
+                    <div class="tab">
+                        <h6>Do you have knowlege of statistics and data science?</h6>
+                        <p><input placeholder="Yes/No..." oninput="this.className = ''" name="ds"> </p>
+                    </div>
+                    <div class="tab">
+                        <h6>Are you proficient in English ?</h6>
+                        <p><input placeholder="Yes/No..." oninput="this.className = ''" name="eng"> </p>
+                    </div>
+                    <div class="tab">
+                        <h6>Have you ever managed some event?</h6>
+                        <p><input placeholder="Yes/No..." oninput="this.className = ''" name="e"> </p>
+                    </div>
+                    <div class="tab">
+                        <h6>Do you write technical blogs ?</h6>
+                        <p><input placeholder="Yes/No..." oninput="this.className = ''" name="tb"></p>
+                    </div>
+                    <div class="tab">
+                        <h6>Are you into marketing ?</h6>
+                        <p><input placeholder="Yes/No..." oninput="this.className = ''" name="m"></p>
+                    </div>
+                    <div class="tab">
+                        <h6>Are you a ML expert ?</h6>
+                        <p><input placeholder="Yes/No..." oninput="this.className = ''" name="ml"></p>
+                    </div>
+                    <div class="tab">
+                        <h6>Do you have a lot of connections ?</h6>
+                        <p><input placeholder="Yes/No..." oninput="this.className = ''" name="con"> </p>
+                    </div>
+                    <div class="tab">
+                        <h6>Have you ever built live project ?</h6>
+                        <p><input placeholder="Yes/No..." oninput="this.className = ''" name="lp"></p>
+                    </div>
+
+
+                    <!-- <div class="thanks-message text-center" id="text-message"> <img
+                            src="https://i.imgur.com/O18mJ1K.png" width="100" class="mb-4">
+                        <h3>Thankyou for your feedback!</h3> <span>Thanks for your valuable information. It helps us to
+                            improve our services!</span>
+                    </div> -->
+                    <div style="overflow:auto;" id="nextprevious">
+                        <div style="float:right;">
+                            <button type="button" id="prevBtn" onclick="nextPrev(-1)"><i
+                                    class="fa fa-angle-double-left"></i></button>
+                            <button type="button" id="nextBtn" onclick="nextPrev(1)"><i
+                                    class="fa fa-angle-double-right"></i></button>
+                        </div>
+                    </div>
+                    <input type='submit' class="btn btn-primary" id="predictBtn" name="btn" value="Predict" >
+                </form>
+            </div>
+        </div>
+    </div>
+    <script type='text/javascript'
+        src='https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/js/bootstrap.bundle.min.js'></script>
+    <script type='text/javascript' src=''></script>
+    <script type='text/javascript' src=''></script>
+    <script type='text/Javascript'>
+var currentTab = 0;
+
+
+document.addEventListener("DOMContentLoaded", function(event)
+{
+    showTab(currentTab);
+});
+
+
+function showTab(n) {
+var x = document.getElementsByClassName("tab");
+x[n].style.display = "block";
+if (n == 0 && n<18) {
+document.getElementById("prevBtn").style.display = "none";
+document.getElementById("predictBtn").style.display = "none";
+} else {
+    if(n==18){
+        document.getElementById("prevBtn").style.display = "none";
+        document.getElementById("nextBtn").style.display = "none";
+        document.getElementById("predictBtn").style.display = "inline";        
+    }
+    else{
+        document.getElementById("prevBtn").style.display = "inline";
+    }
+
+}
+if (n == (x.length - 1)) {
+document.getElementById("nextBtn").innerHTML = '<i class="fa fa-angle-double-right"></i>';
+} else {
+document.getElementById("nextBtn").innerHTML = '<i class="fa fa-angle-double-right"></i>';
+}
+fixStepIndicator(n)
+}
+
+function nextPrev(n)
+{
+    var x = document.getElementsByClassName("tab");
+    if (n == 1 && !validateForm())
+        return false;
+    x[currentTab].style.display = "none";
+    currentTab = currentTab + n;
+    if (currentTab >= x.length)
+    {
+        document.getElementById("nextprevious").style.display = "none";
+        document.getElementById("register").style.display = "none";
+        document.getElementById("text-message").style.display = "block";
+    }
+    showTab(currentTab);
+}
+
+function validateForm()
+{
+    var x, y, i, valid = true;
+    x = document.getElementsByClassName("tab");
+    y = x[currentTab].getElementsByTagName("input");
+    for (i = 0; i < y.length; i++)
+    {
+        if (y[i].value=="" )
+        {
+            y[i].className +=" invalid" ;
+            valid=false;
+        }
+    }
+    if (valid)
+    {
+        //document.getElementsByClassName("step")[currentTab].className +=" finish" ;
+    }
+    return valid;
+}
+
+
+
+function fixStepIndicator(n)
+{
+    //var i, x=document.getElementsByClassName("step");
+    var i;
+    for (i=0; i < 20; i++)
+        {
+            x[i].className=x[i].className.replace("active", "" );
+        }
+        x[n].className +=" active";
+}
+</script>
+</body>
+
+</html>
